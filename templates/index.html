@@ -1,36 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Tuberculosis Detection</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-    <style>
-      body{
-        background-color: aquamarine;
-      }
-      div.preview-images > img {
-        width: 30%;
-      }
-    </style>
-  </head>
-
-  <body>
-    <center>
-	
-        <h5 class='display-1'>Tuberculosis Detection via X-ray Image</h5>
-    
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        
-        <form action="{{url_for('after')}}" method='POST' enctype='multipart/form-data'>
-            <input type="file" name='file1'><br><br>
-        <input type="submit" name="btn" value='Submit' class='btn btn-warning'> 
-     
-        </center>
-  </body>
+<html>
+<head>
+<title>Tuberculosis Detection</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />        
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<style>
+  body{
+    background-color: aquamarine;
+  }
+</style>
+</head>
+<body>
+<p><h1 align="center">Tuberculosis Detection <br>Upload your X-Ray image</h1></p>
+<div class="container">
+<div class="row">
+    <h2>Select a file to upload</h2>
+    <p>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+    </p>
+    {% if filename %}
+        <div>
+            <img src="{{ url_for('display_image', filename=filename) }}">
+        </div>
+    {% endif %}
+    <form method="post" action="/" enctype="multipart/form-data">
+        <dl>
+            <p>
+                <input type="file" name="file" class="form-control" autocomplete="off" required>
+            </p>
+        </dl>
+        <p>
+            <input type="submit" value="Submit" class="btn btn-info">
+        </p>
+    </form>
+</div>
+</div>
+</body>
 </html>
